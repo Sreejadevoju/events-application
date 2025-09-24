@@ -1,20 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Signup from "./pages/Signup";
-import React, { useState } from "react";
 import Login from "./pages/Login";
 import Events from "./pages/Events";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem("auth") === "true"
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  React.useEffect(() => {
-    const handleStorageChange = () => {
-      setIsAuthenticated(localStorage.getItem("auth") === "true");
-    };
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+  // Load from localStorage only once on mount
+  useEffect(() => {
+    const auth = localStorage.getItem("auth") === "true";
+    setIsAuthenticated(auth);
   }, []);
 
   return (
@@ -22,7 +18,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
+        />
         <Route
           path="/events"
           element={isAuthenticated ? <Events /> : <Navigate to="/login" />}
@@ -31,6 +30,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;
