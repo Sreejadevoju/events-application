@@ -7,7 +7,6 @@ import Events from "./pages/Events";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Load from localStorage only once on mount
   useEffect(() => {
     const auth = localStorage.getItem("auth") === "true";
     setIsAuthenticated(auth);
