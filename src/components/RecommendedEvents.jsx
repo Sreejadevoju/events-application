@@ -7,7 +7,7 @@ const RecommendedEvents = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const apiKey = import.meta.env.VITE_AZURE_API_KEY || "DUMMY";
+                const apiKey = import.meta.env.VITE_AZURE_API_KEY;
                 const res = await fetch(
                     `https://gg-backend-assignment.azurewebsites.net/api/Events?code=${apiKey}&type=reco`
                 );
