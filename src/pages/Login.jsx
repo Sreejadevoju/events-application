@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login = ({ setIsAuthenticated }) => {
     const navigate = useNavigate();
@@ -41,9 +42,11 @@ const Login = ({ setIsAuthenticated }) => {
     };
 
     return (
-        <div className="center-screen">
-            <div className="card" style={{ width: "350px" }}>
-                <h2 style={{ textAlign: "center", marginBottom: "16px" }}>Login</h2>
+        <div className="login-container">
+            <div className="login-card">
+                <h2 className="login-title">Welcome Back 👋</h2>
+                <p className="login-subtitle">Please login to continue</p>
+
                 <form onSubmit={handleLogin}>
                     <input
                         className="input"
@@ -53,6 +56,7 @@ const Login = ({ setIsAuthenticated }) => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     {errors.username && <p className="error">{errors.username}</p>}
+
                     <input
                         className="input"
                         type="password"
@@ -61,12 +65,15 @@ const Login = ({ setIsAuthenticated }) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     {errors.password && <p className="error">{errors.password}</p>}
+
                     {serverError && <p className="error">{serverError}</p>}
+
                     <button className="btn" type="submit">
                         Login
                     </button>
                 </form>
-                <p style={{ marginTop: "12px", textAlign: "center" }}>
+
+                <p className="signup-text">
                     Don’t have an account?{" "}
                     <span className="text-link" onClick={() => navigate("/signup")}>
                         Sign Up
